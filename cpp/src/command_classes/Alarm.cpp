@@ -124,14 +124,18 @@ bool Alarm::RequestState
 			/* create version 1 ValueID's */
 			if( Node* node = GetNodeUnsafe() )
 			{
+				uint8 const endpoint = GetEndpoint(_instance);
+
 				m_v1Params = true;
-				node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, AlarmIndex_Type, "Alarm Type", "", true, false, 0, 0 );
-				node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, AlarmIndex_Level, "Alarm Level", "", true, false, 0, 0 );
+				node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, AlarmIndex_Type, "Alarm Type", "", true, false, 0, 0, endpoint );
+				node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, AlarmIndex_Level, "Alarm Level", "", true, false, 0, 0, endpoint );
 			}
 		}
 		if (GetVersion() < 4) {
 			if ( Node* node = GetNodeUnsafe() ) {
-				node->CreateValueInt( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, AlarmIndex_AutoClearEvents, "Automatically Clear Events", "ms", false, false, m_ClearTimeout, 0);
+				uint8 const endpoint = GetEndpoint(_instance);
+
+				node->CreateValueInt( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, AlarmIndex_AutoClearEvents, "Automatically Clear Events", "ms", false, false, m_ClearTimeout, 0, endpoint);
 			}
 		}
 
@@ -431,14 +435,16 @@ bool Alarm::HandleMsg
 	{
 		if( Node* node = GetNodeUnsafe() )
 		{
+			uint8 const endpoint = GetEndpoint(_instance);
+
 			// We have received the supported alarm types from the Z-Wave device
 			Log::Write( LogLevel_Info, GetNodeId(), "Received supported alarm types" );
 			/* Device Only supports Version 1 of the Alarm CC */
 			if ((GetVersion() > 2) && (_data[1] & 0x80)) {
 				m_v1Params = true;
 				Log::Write( LogLevel_Info, GetNodeId(), "Notification::SupportedReport - Device Supports Alarm Version 1 Parameters");
-				node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, AlarmIndex_Type, "Alarm Type", "", true, false, 0, 0 );
-				node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, AlarmIndex_Level, "Alarm Level", "", true, false, 0, 0 );
+				node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, AlarmIndex_Type, "Alarm Type", "", true, false, 0, 0, endpoint );
+				node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, AlarmIndex_Level, "Alarm Level", "", true, false, 0, 0, endpoint );
 			}
 			// Parse the data for the supported alarm types
 			uint8 numBytes = (_data[1] & 0x1F);
@@ -465,7 +471,7 @@ bool Alarm::HandleMsg
 									_items.push_back( item );
 #endif
 								}
-								node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, index, NotificationCCTypes::Get()->GetAlarmType(index), "", true, false, _items.size(), _items, 0, 0 );
+								node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, index, NotificationCCTypes::Get()->GetAlarmType(index), "", true, false, _items.size(), _items, 0, 0, endpoint );
 							}
 							ClearStaticRequest( StaticRequest_Values );
 						}
@@ -492,6 +498,8 @@ bool Alarm::HandleMsg
 	{
 		//			if( Node* node = GetNodeUnsafe() )
 		{
+			uint8 const endpoint = GetEndpoint(_instance);
+
 			uint32 type = _data[1];
 			// We have received the supported alarm Event types from the Z-Wave device
 			Log::Write( LogLevel_Info, GetNodeId(), "Received supported alarm Event types for AlarmType %s (%d)", NotificationCCTypes::Get()->GetAlarmType(type).c_str(), type);
@@ -514,7 +522,7 @@ bool Alarm::HandleMsg
 			}
 			if( Node* node = GetNodeUnsafe() )
 			{
-				node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, type, NotificationCCTypes::Get()->GetAlarmType(type), "", true, false, _items.size(), _items, 0, 0 );
+				node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, type, NotificationCCTypes::Get()->GetAlarmType(type), "", true, false, _items.size(), _items, 0, 0, endpoint );
 			}
 		}
 		ClearStaticRequest( StaticRequest_Values );
@@ -539,10 +547,12 @@ void Alarm::SetupEvents
 		_items->push_back( item );
 		/* If there are Params - Lets create the correct types now */
 		if ( Node* node = GetNodeUnsafe() ) {
+			uint8 const endpoint = GetEndpoint(_instance);
+
 			for (std::map<uint32, NotificationCCTypes::NotificationEventParams* >::const_iterator it = ne->EventParams.begin(); it != ne->EventParams.end(); it++ ) {
 				switch (it->second->type) {
 				case NotificationCCTypes::NEPT_Location: {
-					node->CreateValueString( ValueID::ValueGenre_User, GetCommandClassId(), _instance, it->first, it->second->name, "", true, false, "", 0);
+					node->CreateValueString( ValueID::ValueGenre_User, GetCommandClassId(), _instance, it->first, it->second->name, "", true, false, "", 0, endpoint);
 					break;
 				}
 				case NotificationCCTypes::NEPT_List: {
@@ -553,24 +563,24 @@ void Alarm::SetupEvents
 						Paramitem.m_label = ne->name;
 						_Paramitems.push_back( Paramitem );
 					}
-					node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, it->first, it->second->name, "", true, false, _Paramitems.size(), _Paramitems, 0, 0 );
+					node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, it->first, it->second->name, "", true, false, _Paramitems.size(), _Paramitems, 0, 0, endpoint );
 					break;
 				}
 				case NotificationCCTypes::NEPT_UserCodeReport: {
-					node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, it->first, it->second->name, "", true, false, 0, 0);
-					node->CreateValueString(ValueID::ValueGenre_User, GetCommandClassId(), _instance, it->first+1, it->second->name, "", true, false, "", 0);
+					node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, it->first, it->second->name, "", true, false, 0, 0, endpoint);
+					node->CreateValueString(ValueID::ValueGenre_User, GetCommandClassId(), _instance, it->first+1, it->second->name, "", true, false, "", 0, endpoint);
 					break;
 				}
 				case NotificationCCTypes::NEPT_Byte: {
-					node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, it->first, it->second->name, "", true, false, 0, 0);
+					node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, it->first, it->second->name, "", true, false, 0, 0, endpoint);
 					break;
 				}
 				case NotificationCCTypes::NEPT_String: {
-					node->CreateValueString( ValueID::ValueGenre_User, GetCommandClassId(), _instance, it->first, it->second->name, "", true, false, "", 0);
+					node->CreateValueString( ValueID::ValueGenre_User, GetCommandClassId(), _instance, it->first, it->second->name, "", true, false, "", 0, endpoint);
 					break;
 				}
 				case NotificationCCTypes::NEPT_Time: {
-					node->CreateValueInt( ValueID::ValueGenre_User, GetCommandClassId(), _instance, it->first, it->second->name, "", true, false, 0, 0);
+					node->CreateValueInt( ValueID::ValueGenre_User, GetCommandClassId(), _instance, it->first, it->second->name, "", true, false, 0, 0, endpoint);
 					break;
 				}
 				}

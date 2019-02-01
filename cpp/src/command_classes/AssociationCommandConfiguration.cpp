@@ -239,11 +239,13 @@ void AssociationCommandConfiguration::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-	  	node->CreateValueByte (	ValueID::ValueGenre_System, GetCommandClassId(), _instance, AssociationCommandConfigurationIndex_MaxCommandLength,			"Max Command Length",			"", true, false, 0, 0 );
-		node->CreateValueBool ( ValueID::ValueGenre_System, GetCommandClassId(), _instance, AssociationCommandConfigurationIndex_CommandsAreValues,			"Commands are Values",			"", true, false, false, 0 );
-		node->CreateValueBool ( ValueID::ValueGenre_System, GetCommandClassId(), _instance, AssociationCommandConfigurationIndex_CommandsAreConfigurable,	"Commands are Configurable",	"", true, false, false, 0 );
-		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, AssociationCommandConfigurationIndex_NumFreeCommands,			"Free Commands",				"", true, false, 0, 0 );
-		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, AssociationCommandConfigurationIndex_MaxCommands,				"Max Commands",					"", true, false, 0, 0 );
+		uint8 const endpoint = GetEndpoint(_instance);
+
+	  	node->CreateValueByte (	ValueID::ValueGenre_System, GetCommandClassId(), _instance, AssociationCommandConfigurationIndex_MaxCommandLength,			"Max Command Length",			"", true, false, 0, 0, endpoint );
+		node->CreateValueBool ( ValueID::ValueGenre_System, GetCommandClassId(), _instance, AssociationCommandConfigurationIndex_CommandsAreValues,			"Commands are Values",			"", true, false, false, 0, endpoint );
+		node->CreateValueBool ( ValueID::ValueGenre_System, GetCommandClassId(), _instance, AssociationCommandConfigurationIndex_CommandsAreConfigurable,	"Commands are Configurable",	"", true, false, false, 0, endpoint );
+		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, AssociationCommandConfigurationIndex_NumFreeCommands,			"Free Commands",				"", true, false, 0, 0, endpoint );
+		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, AssociationCommandConfigurationIndex_MaxCommands,				"Max Commands",					"", true, false, 0, 0, endpoint );
 	}
 }
 

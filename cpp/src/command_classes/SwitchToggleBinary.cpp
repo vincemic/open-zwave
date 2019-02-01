@@ -150,7 +150,9 @@ void SwitchToggleBinary::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-	  	node->CreateValueBool( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Toggle Switch", "", false, false, false, 0 );
+		uint8 const endpoint = GetEndpoint(_instance);
+
+	  	node->CreateValueBool( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Toggle Switch", "", false, false, false, 0, endpoint );
 	}
 }
 

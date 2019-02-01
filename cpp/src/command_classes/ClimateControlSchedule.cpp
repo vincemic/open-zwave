@@ -405,10 +405,12 @@ void ClimateControlSchedule::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
+		uint8 const endpoint = GetEndpoint(_instance);
+
 		// Add a ValueSchedule for each day of the week.
 		for( uint8 i=0; i<7; ++i )
 		{
-		  	node->CreateValueSchedule( ValueID::ValueGenre_User, GetCommandClassId(), _instance, i+1, c_dayNames[i+1], "", false, false, 0 );
+		  	node->CreateValueSchedule( ValueID::ValueGenre_User, GetCommandClassId(), _instance, i+1, c_dayNames[i+1], "", false, false, 0, endpoint );
 		}
 
 		// Add values for the override state and setback
@@ -422,8 +424,8 @@ void ClimateControlSchedule::CreateVars
 			items.push_back( item );
 		}
 
-		node->CreateValueList(  ValueID::ValueGenre_User, GetCommandClassId(), _instance, ClimateControlScheduleIndex_OverrideState, "Override State", "", false, false, 1, items, 0, 0 );
-		node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ClimateControlScheduleIndex_OverrideSetback, "Override Setback", "", false, false, 0, 0  );
+		node->CreateValueList(  ValueID::ValueGenre_User, GetCommandClassId(), _instance, ClimateControlScheduleIndex_OverrideState, "Override State", "", false, false, 1, items, 0, 0, endpoint );
+		node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ClimateControlScheduleIndex_OverrideSetback, "Override Setback", "", false, false, 0, 0, endpoint  );
 	}
 }
 

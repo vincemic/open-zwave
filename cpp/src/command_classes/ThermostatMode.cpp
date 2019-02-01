@@ -449,6 +449,8 @@ void ThermostatMode::CreateVars
 			}
 		}
 
-		node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Mode", "", false, false, 1, m_supportedModes, defaultValue, 0 );
+		uint8 const endpoint = GetEndpoint(_instance);
+
+		node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Mode", "", false, false, 1, m_supportedModes, defaultValue, 0, endpoint );
 	}
 }

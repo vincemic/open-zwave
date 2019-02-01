@@ -90,6 +90,8 @@ void SimpleAV::CreateVars
 {
 	if (Node* node = GetNodeUnsafe())
 	{
+		uint8 const endpoint = GetEndpoint(_instance);
+
 		// Create list value
 		vector<ValueList::Item> items;
 		vector<SimpleAVCommandItem> commands = SimpleAVCommandItem::GetCommands();
@@ -156,7 +158,7 @@ void SimpleAV::CreateVars
 			}
 		}
 
-		node->CreateValueList(ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, string("OutputAVCommand_").append(std::to_string(_instance)), "", false, true, 2, items, 0, 0);
+		node->CreateValueList(ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, string("OutputAVCommand_").append(std::to_string(_instance)), "", false, true, 2, items, 0, 0, endpoint);
 		
 		// Create a similar numeric value
 		// node->CreateValueShort(ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, string("OutputAVCommandNumber_").append(std::to_string(_instance)), "", false, true, 0, 0, helpNumeric);

@@ -473,6 +473,7 @@ void Powerlevel::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
+		uint8 const endpoint = GetEndpoint(_instance);
 		vector<ValueList::Item> items;
 
 		ValueList::Item item;
@@ -483,14 +484,14 @@ void Powerlevel::CreateVars
 			items.push_back( item );
 		}
 
-		node->CreateValueList( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_Powerlevel, "Powerlevel", "dB", false, false, 1, items, 0, 0 );
-		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_Timeout, "Timeout", "seconds", false, false, 0, 0 );
-		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_Set, "Set Powerlevel", 0 );
-		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_TestNode, "Test Node", "", false, false, 0, 0 );
-		node->CreateValueList( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_TestPowerlevel, "Test Powerlevel", "dB", false, false, 1, items, 0, 0 );
-		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_TestFrames, "Frame Count", "", false, false, 0, 0 );
-		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_Test, "Test", 0 );
-		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_Report, "Report", 0 );
+		node->CreateValueList( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_Powerlevel, "Powerlevel", "dB", false, false, 1, items, 0, 0, endpoint );
+		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_Timeout, "Timeout", "seconds", false, false, 0, 0, endpoint );
+		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_Set, "Set Powerlevel", 0, endpoint );
+		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_TestNode, "Test Node", "", false, false, 0, 0, endpoint);
+		node->CreateValueList( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_TestPowerlevel, "Test Powerlevel", "dB", false, false, 1, items, 0, 0, endpoint );
+		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_TestFrames, "Frame Count", "", false, false, 0, 0, endpoint );
+		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_Test, "Test", 0, endpoint );
+		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_Report, "Report", 0, endpoint );
 
 		items.clear();
 		for( uint8 i=0; i<3; ++i )
@@ -499,7 +500,7 @@ void Powerlevel::CreateVars
 			item.m_value = i;
 			items.push_back( item );
 		}
-		node->CreateValueList( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_TestStatus, "Test Status", "", true, false, 1, items, 0, 0 );
-		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_TestAckFrames, "Acked Frames", "", true, false, 0, 0 );
+		node->CreateValueList( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_TestStatus, "Test Status", "", true, false, 1, items, 0, 0, endpoint );
+		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, PowerlevelIndex_TestAckFrames, "Acked Frames", "", true, false, 0, 0, endpoint );
 	}
 }

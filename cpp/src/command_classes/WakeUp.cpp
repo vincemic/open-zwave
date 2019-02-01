@@ -551,19 +551,21 @@ void WakeUp::CreateVars
 	{
 		if( !node->IsController() )	// We don't add the interval value for controllers, because they don't appear to ever wake up on their own.
 		{
+		    uint8 const endpoint = GetEndpoint(_instance);
+
 			switch( GetVersion() )
 			{
 			case 1:
 			{
-				node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 0, "Wake-up Interval", "Seconds", false, false, 3600, 0 );
+				node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 0, "Wake-up Interval", "Seconds", false, false, 3600, 0, endpoint);
 				break;
 			}
 			case 2:
 			{
-				node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 1, "Minimum Wake-up Interval", "Seconds", true, false, 0, 0 );
-				node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 2, "Maximum Wake-up Interval", "Seconds", true, false, 0, 0 );
-				node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 3, "Default Wake-up Interval", "Seconds", true, false, 0, 0 );
-				node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 4, "Wake-up Interval Step", "Seconds", true, false, 0, 0 );
+				node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 1, "Minimum Wake-up Interval", "Seconds", true, false, 0, 0, endpoint);
+				node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 2, "Maximum Wake-up Interval", "Seconds", true, false, 0, 0, endpoint);
+				node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 3, "Default Wake-up Interval", "Seconds", true, false, 0, 0, endpoint);
+				node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 4, "Wake-up Interval Step", "Seconds", true, false, 0, 0, endpoint);
 				break;
 			}
 			}

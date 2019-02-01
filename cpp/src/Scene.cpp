@@ -254,7 +254,7 @@ bool Scene::ReadScenes
 				ValueID::ValueType type = Value::GetTypeEnumFromName( valueElement->Attribute( "type" ) );
 				char const* data = valueElement->GetText();
 
-				scene->m_values.push_back( new SceneStorage( ValueID(homeId, nodeId, genre, commandClassId, instance, index, type), data ) );
+				scene->m_values.push_back( new SceneStorage( ValueID(homeId, nodeId, genre, commandClassId, instance, index, type, 0), data ) );
 			}
 
 			valueElement = valueElement->NextSiblingElement();

@@ -310,7 +310,9 @@ void ControllerReplication::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ControllerReplicationIndex_NodeId, "Node", "", false, false, 0, 0 );
+		uint8 const endpoint = GetEndpoint(_instance);
+
+		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ControllerReplicationIndex_NodeId, "Node", "", false, false, 0, 0, endpoint );
 		vector<ValueList::Item> items;
 
 		ValueList::Item item;
@@ -321,7 +323,7 @@ void ControllerReplication::CreateVars
 			items.push_back( item );
 		}
 
-		node->CreateValueList( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ControllerReplicationIndex_Function, "Functions", "", false, false, 1, items, 0, 0 );
-		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ControllerReplicationIndex_Replicate, "Replicate", 0 );
+		node->CreateValueList( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ControllerReplicationIndex_Function, "Functions", "", false, false, 1, items, 0, 0, endpoint );
+		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ControllerReplicationIndex_Replicate, "Replicate", 0, endpoint );
 	}
 }

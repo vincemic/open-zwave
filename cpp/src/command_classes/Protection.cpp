@@ -177,6 +177,8 @@ void Protection::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
+		uint8 const endpoint = GetEndpoint(_instance);
+
 		vector<ValueList::Item> items;
 
 		ValueList::Item item;
@@ -187,6 +189,6 @@ void Protection::CreateVars
 			items.push_back( item );
 		}
 
-		node->CreateValueList( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 0, "Protection", "", false, false, 1, items, 0, 0 );
+		node->CreateValueList( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 0, "Protection", "", false, false, 1, items, 0, 0, endpoint );
 	}
 }

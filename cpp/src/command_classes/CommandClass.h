@@ -96,7 +96,7 @@ public:
 	Node* GetNodeUnsafe()const;
 	Value* GetValue( uint8 const _instance, uint16 const _index );
 	bool RemoveValue( uint8 const _instance, uint16 const _index );
-	uint8 GetEndPoint( uint8 const _instance )
+	uint8 GetEndpoint( uint8 const _instance )
 	{
 		map<uint8,uint8>::iterator it = m_endPointMap.find( _instance );
 		return( it == m_endPointMap.end() ? 0 : it->second );

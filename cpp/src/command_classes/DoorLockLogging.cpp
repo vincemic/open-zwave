@@ -368,9 +368,11 @@ void DoorLockLogging::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-  		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, Value_System_Config_MaxRecords, "Max Number of Records", "", true, false, 0x0, 0 );
-  		node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_GetRecordNo, "Current Record Number", "", false, false, 0x0, 0 );
-  		node->CreateValueString( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_LogRecord, "Log Record", "", true, false, "", 0 );
+		uint8 const endpoint = GetEndpoint(_instance);
+
+  		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, Value_System_Config_MaxRecords, "Max Number of Records", "", true, false, 0x0, 0, endpoint );
+  		node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_GetRecordNo, "Current Record Number", "", false, false, 0x0, 0, endpoint );
+  		node->CreateValueString( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_LogRecord, "Log Record", "", true, false, "", 0, endpoint );
 	}
 }
 

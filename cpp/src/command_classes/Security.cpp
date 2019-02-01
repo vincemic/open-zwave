@@ -321,7 +321,9 @@ void Security::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueBool( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 0, "Secured", "", true, false, false, 0 );
+		uint8 const endpoint = GetEndpoint(_instance);
+
+		node->CreateValueBool( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 0, "Secured", "", true, false, false, 0, endpoint);
 	}
 }
 

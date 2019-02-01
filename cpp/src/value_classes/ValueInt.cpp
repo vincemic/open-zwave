@@ -54,9 +54,10 @@ ValueInt::ValueInt
 	bool const _readOnly,
 	bool const _writeOnly,
 	int32 const _value,
-	uint8 const _pollIntensity
+	uint8 const _pollIntensity,
+	uint8 const _endpointId
 ):
-  	Value( _homeId, _nodeId, _genre, _commandClassId, _instance, _index, ValueID::ValueType_Int, _label, _units, _readOnly, _writeOnly, false, _pollIntensity ),
+  	Value( _homeId, _nodeId, _genre, _commandClassId, _instance, _index, ValueID::ValueType_Int, _label, _units, _readOnly, _writeOnly, false, _pollIntensity, _endpointId ),
 	m_value( _value ),
 	m_valueCheck( 0 )
 {

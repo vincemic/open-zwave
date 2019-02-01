@@ -70,6 +70,7 @@ namespace OpenZWave
 		friend class ValueStore;
 		friend class Notification;
 		friend class ManufacturerSpecific;
+		friend class Scene;
 
 	public:
 		/** 
@@ -114,6 +115,15 @@ namespace OpenZWave
 		uint32 GetHomeId()const
 			{
 				return m_homeId;
+			}
+
+		/**
+		 * Get the Endpoint ID of this value's instance.
+		* \return the Endpoint ID.
+		*/
+		uint8 GetEndpointId()const
+			{
+				return m_endpointId;
 			}
 
 		/** 
@@ -292,21 +302,43 @@ namespace OpenZWave
 			{
 				m_id = ((uint32)_nodeId)<<24;
 			}
-		ValueID( uint32 const _homeId, uint8 const _nodeId, uint32 const _instance ): 
-			m_homeId( _homeId )
+		ValueID( uint32 const _homeId, uint8 const _nodeId, uint32 const _instance, uint8 const _endpointId ): 
+			m_homeId( _homeId ),
+			m_endpointId( _endpointId )
 			{ 
 				m_id = (((uint32)_nodeId)<<24) | (((uint32)_instance) << 4);
 				m_id1 = 0;
 			}
-
+		ValueID
+		(
+			uint32 const _homeId,
+			uint8 const	_nodeId,
+			ValueGenre const _genre,
+			uint8 const _commandClassId,
+			uint8 const _instance,
+			uint16 const _valueIndex,
+			ValueType const _type,
+			uint8 const _endpointId
+		) :
+			m_homeId(_homeId),
+			m_endpointId(_endpointId)
+		{
+			m_id = (((uint32)_nodeId) << 24)
+				| (((uint32)_genre) << 22)
+				| (((uint32)_commandClassId) << 14)
+				| (((uint32)(_instance & 0xFF)) << 4)
+				| ((uint32)_type);
+			m_id1 = (((uint32)_valueIndex) << 16);
+		}
 		// Default constructor
 		ValueID():
 			m_id(0),
 			m_id1(0),
-			m_homeId(0)
+			m_homeId(0),
+			m_endpointId(1)
 			{
 
-			}
+		    }
 
 		// Not all parts of the ValueID are necessary to uniquely identify the value.  In the case of a 
 		// Node's ValueStore, we can ignore the home ID, node ID, genre and type and still be left with
@@ -353,6 +385,9 @@ namespace OpenZWave
 
 		// Unique PC interface identifier
 		uint32  m_homeId;
+
+		// The Endpoint Id of this value's Instance
+		uint8 m_endpointId;
 	};
 
 } // namespace OpenZWave

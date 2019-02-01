@@ -550,6 +550,8 @@ bool CentralScene::HandleMsg
 				// version 1 does not tell us which keyAttributes are supported, but only single press, released and held down are supported, so add these 3
 				if( Node* node = GetNodeUnsafe() )
 				{
+					uint8 const endpoint = GetEndpoint(_instance);
+
 					vector<ValueList::Item> items;
 					for( unsigned int i=0; i < 4; i++)
 					{
@@ -560,7 +562,7 @@ bool CentralScene::HandleMsg
 					}
 					char lbl[64];
 					snprintf(lbl, 64, "Scene %d", sceneID);
-					node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, sceneID, lbl, "", true, false, 3, items, 0, 0 );
+					node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, sceneID, lbl, "", true, false, 3, items, 0, 0, endpoint );
 				}
 			}
 			if ( GetVersion() >= 2 )
@@ -593,8 +595,10 @@ void CentralScene::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueInt( ValueID::ValueGenre_User, GetCommandClassId(), _instance, CentralSceneIndex_SceneCount, "Scene Count", "", true, false, 0, 0 );
-		node->CreateValueInt( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, CentralSceneIndex_ClearSceneTimeout, "Scene Reset Timeout", "", false, false, m_ClearTimeout, 0);
+		uint8 const endpoint = GetEndpoint(_instance);
+
+		node->CreateValueInt( ValueID::ValueGenre_User, GetCommandClassId(), _instance, CentralSceneIndex_SceneCount, "Scene Count", "", true, false, 0, 0, endpoint );
+		node->CreateValueInt( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, CentralSceneIndex_ClearSceneTimeout, "Scene Reset Timeout", "", false, false, m_ClearTimeout, 0, endpoint);
 	}
 }
 
@@ -607,6 +611,8 @@ void CentralScene::createSupportedKeyAttributesValues
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
+		uint8 const endpoint = GetEndpoint(instance);
+
 		vector<ValueList::Item> items;
 		{
 			ValueList::Item item;
@@ -666,7 +672,7 @@ void CentralScene::createSupportedKeyAttributesValues
 		}
 		char lbl[64];
 		snprintf(lbl, 64, "Scene %d", sceneNumber);
-		node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), instance, sceneNumber, lbl, "", true, false, items.size(), items, 0, 0 );
+		node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), instance, sceneNumber, lbl, "", true, false, items.size(), items, 0, 0, endpoint );
 	}
 }
 

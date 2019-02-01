@@ -260,6 +260,8 @@ bool Meter::HandleSupportedReport
 	ClearStaticRequest( StaticRequest_Version );
 	if( Node* node = GetNodeUnsafe() )
 	{
+		uint8 const endpoint = GetEndpoint(_instance);
+
 		string msg;
 		msg = c_meterTypes[meterType];
 		msg += ": ";
@@ -288,7 +290,7 @@ bool Meter::HandleSupportedReport
 						}
 						else
 						{
-							node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, baseIndex, c_electricityLabels[i], c_electricityUnits[i], true, false, "0.0", 0 );
+							node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, baseIndex, c_electricityLabels[i], c_electricityUnits[i], true, false, "0.0", 0, endpoint );
 						}
 						if( i != 0 )
 							msg += ", ";
@@ -305,7 +307,7 @@ bool Meter::HandleSupportedReport
 						}
 						else
 						{
-							node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, baseIndex, c_meterTypes[meterType], c_gasUnits[i], true, false, "0.0", 0 );
+							node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, baseIndex, c_meterTypes[meterType], c_gasUnits[i], true, false, "0.0", 0, endpoint );
 						}
 						if( i != 0 )
 							msg += ", ";
@@ -322,7 +324,7 @@ bool Meter::HandleSupportedReport
 						}
 						else
 						{
-							node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, baseIndex, c_meterTypes[meterType], c_waterUnits[i], true, false, "0.0", 0 );
+							node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, baseIndex, c_meterTypes[meterType], c_waterUnits[i], true, false, "0.0", 0, endpoint );
 						}
 						if( i != 0 )
 							msg += ", ";
@@ -338,12 +340,12 @@ bool Meter::HandleSupportedReport
 		}
 
 		// Create the export flag
-		node->CreateValueBool( ValueID::ValueGenre_User, GetCommandClassId(), _instance, MeterIndex_Exporting, "Exporting", "", true, false, false, 0 );
+		node->CreateValueBool( ValueID::ValueGenre_User, GetCommandClassId(), _instance, MeterIndex_Exporting, "Exporting", "", true, false, false, 0, endpoint );
 
 		// Create the reset button
 		if( canReset )
 		{
-			node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, MeterIndex_Reset, "Reset", 0 );
+			node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, MeterIndex_Reset, "Reset", 0, endpoint );
 		}
 
 		Log::Write( LogLevel_Info, GetNodeId(), "Received Meter supported report from node %d, %s", GetNodeId(), msg.c_str() );
@@ -364,6 +366,8 @@ bool Meter::HandleReport
 	uint32 const _instance
 )
 {
+	uint8 const endpoint = GetEndpoint(_instance);
+
 	// Import or Export (only valid in version > 1)
 	bool exporting = false;
 	if( GetVersion() > 1 )
@@ -476,7 +480,7 @@ bool Meter::HandleReport
 					// We need to create a value to hold the previous
 					if( Node* node = GetNodeUnsafe() )
 					{
-						node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, baseIndex+1, "Previous Reading", value->GetUnits().c_str(), true, false, "0.0", 0 );
+						node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, baseIndex+1, "Previous Reading", value->GetUnits().c_str(), true, false, "0.0", 0, endpoint );
 						previous = static_cast<ValueDecimal*>( GetValue( _instance, baseIndex+1 ) );
 					}
 				}
@@ -500,7 +504,7 @@ bool Meter::HandleReport
 					// We need to create a value to hold the time delta
 					if( Node* node = GetNodeUnsafe() )
 					{
-						node->CreateValueInt( ValueID::ValueGenre_User, GetCommandClassId(), _instance, baseIndex+2, "Interval", "seconds", true, false, 0, 0 );
+						node->CreateValueInt( ValueID::ValueGenre_User, GetCommandClassId(), _instance, baseIndex+2, "Interval", "seconds", true, false, 0, 0, endpoint );
 						interval = static_cast<ValueInt*>( GetValue( _instance, baseIndex+2 ) );
 					}
 				}
@@ -556,6 +560,8 @@ void Meter::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Unknown", "", true, false, "0.0", 0 );
+		uint8 const endpoint = GetEndpoint(_instance);
+
+		node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Unknown", "", true, false, "0.0", 0, endpoint );
 	}
 }

@@ -111,8 +111,10 @@ void BasicWindowCovering::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueButton( ValueID::ValueGenre_User, GetCommandClassId(), _instance, BasicWindowCoveringIndex_Open, "Open", 0 );
-		node->CreateValueButton( ValueID::ValueGenre_User, GetCommandClassId(), _instance, BasicWindowCoveringIndex_Close, "Close", 0 );
+		uint8 const endpoint = GetEndpoint(_instance);
+
+		node->CreateValueButton( ValueID::ValueGenre_User, GetCommandClassId(), _instance, BasicWindowCoveringIndex_Open, "Open", 0, endpoint );
+		node->CreateValueButton( ValueID::ValueGenre_User, GetCommandClassId(), _instance, BasicWindowCoveringIndex_Close, "Close", 0, endpoint );
 	}
 }
 

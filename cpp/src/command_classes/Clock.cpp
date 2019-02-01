@@ -241,6 +241,8 @@ void Clock::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
+		uint8 const endpoint = GetEndpoint(_instance);
+
 		vector<ValueList::Item> items;
 		for( int i=1; i<=7; ++i )
 		{
@@ -250,8 +252,8 @@ void Clock::CreateVars
 			items.push_back( item );
 		}
 
-		node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ClockIndex_Day, "Day", "", false, false, 1, items, 0, 0 );
-		node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ClockIndex_Hour, "Hour", "", false, false, 12, 0 );
-		node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ClockIndex_Minute, "Minute", "", false, false, 0, 0 );
+		node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ClockIndex_Day, "Day", "", false, false, 1, items, 0, 0, endpoint );
+		node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ClockIndex_Hour, "Hour", "", false, false, 12, 0, endpoint );
+		node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ClockIndex_Minute, "Minute", "", false, false, 0, 0, endpoint );
 	}
 }

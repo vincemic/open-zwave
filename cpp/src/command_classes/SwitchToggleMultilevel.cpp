@@ -195,7 +195,9 @@ void SwitchToggleMultilevel::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-	  	node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Level", "", false, false, 0, 0 );
+		uint8 const endpoint = GetEndpoint(_instance);
+
+	  	node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Level", "", false, false, 0, 0, endpoint);
 	}
 }
 

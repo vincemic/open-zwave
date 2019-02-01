@@ -230,7 +230,7 @@ bool Basic::HandleMsg
 			Log::Write( LogLevel_Info, GetNodeId(), "Received Basic set from node %d: level=%d.  Sending event notification.", GetNodeId(), _data[1] );
 
 			Notification* notification = new Notification( Notification::Type_NodeEvent );
-			notification->SetHomeNodeIdAndInstance( GetHomeId(), GetNodeId(), _instance );
+			notification->SetHomeNodeIdAndInstance( GetHomeId(), GetNodeId(), _instance, GetEndpoint(_instance) );
 			notification->SetEvent( _data[1] );
 			GetDriver()->QueueNotification( notification );
 		}
@@ -346,10 +346,12 @@ bool Basic::SetMapping
 		if( Node* node = GetNodeUnsafe() )
 		{
 			if (m_instances.size() > 0) {
-				for (unsigned int i = 0; i < m_instances.size(); i++)
-					node->CreateValueByte( ValueID::ValueGenre_Basic, GetCommandClassId(), m_instances[i], 0, "Basic", "", false, false, 0, 0 );
+				for (unsigned int i = 0; i < m_instances.size(); i++) {
+					uint8 const endpoint = GetEndpoint(m_instances[i]);
+					node->CreateValueByte(ValueID::ValueGenre_Basic, GetCommandClassId(), m_instances[i], 0, "Basic", "", false, false, 0, 0, endpoint);
+				}
 			} else {
-				node->CreateValueByte( ValueID::ValueGenre_Basic, GetCommandClassId(), 0, 0, "Basic", "", false, false, 0, 0 );
+				node->CreateValueByte( ValueID::ValueGenre_Basic, GetCommandClassId(), 0, 0, "Basic", "", false, false, 0, 0, GetEndpoint(0) );
 			}
 		}
 	}

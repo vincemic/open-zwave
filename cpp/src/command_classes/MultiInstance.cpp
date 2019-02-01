@@ -586,7 +586,7 @@ void MultiInstance::HandleMultiChannelCapabilityReport
 							}
 						}
 						// Reuse non-endpoint instances first time we see it
-						else if( i == 1 && cc->GetInstances()->IsSet( i ) && cc->GetEndPoint( i ) == 0 )
+						else if( i == 1 && cc->GetInstances()->IsSet( i ) && cc-> GetEndpoint( i ) == 0 )
 						{
 							break;
 						}
@@ -719,7 +719,7 @@ void MultiInstance::HandleMultiChannelEncap
 			/* we can never have a 0 Instance */
 			if (instance == 0)
 				instance = 1;
-			Log::Write( LogLevel_Info, GetNodeId(), "Received a MultiChannelEncap from node %d, endpoint %d for Command Class %s", GetNodeId(), endPoint, pCommandClass->GetCommandClassName().c_str() );
+			Log::Write( LogLevel_Info, GetNodeId(), "Received a MultiChannelEncap from node %d, endpoint %d , instance %d, for Command Class %s", GetNodeId(), endPoint, instance, pCommandClass->GetCommandClassName().c_str() );
 			pCommandClass->HandleMsg( &_data[4], _length-4, instance );
 		}
 		else if (CommandClass* pCommandClass = node->GetCommandClass( commandClassId, true ) )
@@ -728,7 +728,7 @@ void MultiInstance::HandleMultiChannelEncap
 			/* we can never have a 0 Instance */
 			if (instance == 0)
 				instance = 1;
-			Log::Write( LogLevel_Info, GetNodeId(), "Received a Incoming MultiChannelEncap from node %d, endpoint %d for Command Class %s", GetNodeId(), endPoint, pCommandClass->GetCommandClassName().c_str() );
+			Log::Write( LogLevel_Info, GetNodeId(), "Received a Incoming MultiChannelEncap from node %d, endpoint %d, instance %d, for Command Class %s", GetNodeId(), endPoint, instance, pCommandClass->GetCommandClassName().c_str() );
 			pCommandClass->HandleIncomingMsg( &_data[4], _length-4, instance );
 
 		}

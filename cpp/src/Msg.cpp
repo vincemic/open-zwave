@@ -109,7 +109,7 @@ void Msg::SetInstance
 		{
 			if( micc->GetVersion() > 1 )
 			{
-				m_endPoint = _cc->GetEndPoint( _instance );
+				m_endPoint = _cc->GetEndpoint( _instance );
 				if( m_endPoint != 0 )
 				{
 					// Set the flag bit to indicate MultiChannel rather than MultiInstance

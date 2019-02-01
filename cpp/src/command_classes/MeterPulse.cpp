@@ -135,7 +135,9 @@ void MeterPulse::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-	  	node->CreateValueInt( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Count", "", true, false, 0, 0 );
+		uint8 const endpoint = GetEndpoint(_instance);
+
+	  	node->CreateValueInt( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Count", "", true, false, 0, 0, endpoint );
 	}
 }
 

@@ -312,8 +312,10 @@ bool DoorLock::HandleMsg
 				/* if we have a timeout, then create the Values for the timeout config */
 				if( Node* node = GetNodeUnsafe() )
 				{
-					node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, Value_System_Config_Minutes, "Timeout Minutes", "Mins", false, false, _data[3], 0 );
-					node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, Value_System_Config_Seconds, "Timeout Seconds", "Secs", false, false, _data[4], 0 );
+					uint8 const endpoint = GetEndpoint(_instance);
+
+					node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, Value_System_Config_Minutes, "Timeout Minutes", "Mins", false, false, _data[3], 0, endpoint );
+					node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, Value_System_Config_Seconds, "Timeout Seconds", "Secs", false, false, _data[4], 0, endpoint );
 				}
 			  	m_timeoutsupported = DoorLockConfig_Timeout;
 			  	m_timeoutmins = _data[3];
@@ -552,7 +554,9 @@ void DoorLock::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-	  	node->CreateValueBool( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_Lock, "Locked", "", false, false, false, 0 );
+		uint8 const endpoint = GetEndpoint(_instance);
+
+	  	node->CreateValueBool( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_Lock, "Locked", "", false, false, false, 0, endpoint );
 
 	  	/* Complex Lock Option */
 	  	{
@@ -564,7 +568,7 @@ void DoorLock::CreateVars
 	  			item.m_value = (i < 6) ? i : 0xFF;
 	  			items.push_back( item );
 	  		}
-	  		node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_Lock_Mode, "Locked (Advanced)", "", false, false, 1, items, 0, 0 );
+	  		node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_Lock_Mode, "Locked (Advanced)", "", false, false, 1, items, 0, 0, endpoint );
 
 
 	  	}
@@ -579,10 +583,10 @@ void DoorLock::CreateVars
 	  			item.m_value = i+1;
 	  			items.push_back( item );
 	  		}
-	  		node->CreateValueList( ValueID::ValueGenre_System, GetCommandClassId(), _instance, Value_System_Config_Mode, "Timeout Mode", "", false, false, 1, items, 0, 0 );
+	  		node->CreateValueList( ValueID::ValueGenre_System, GetCommandClassId(), _instance, Value_System_Config_Mode, "Timeout Mode", "", false, false, 1, items, 0, 0, endpoint );
 	  	}
-  		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, Value_System_Config_OutsideHandles, "Outside Handle Control", "", false, false, 0x0F, 0 );
-  		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, Value_System_Config_InsideHandles, "Inside Handle Control", "", false, false, 0x0F, 0 );
+  		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, Value_System_Config_OutsideHandles, "Outside Handle Control", "", false, false, 0x0F, 0, endpoint );
+  		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, Value_System_Config_InsideHandles, "Inside Handle Control", "", false, false, 0x0F, 0, endpoint );
 
 	}
 }

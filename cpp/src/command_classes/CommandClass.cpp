@@ -304,7 +304,7 @@ void CommandClass::ReadXML
 			else if( !strcmp( str, "Value" ) )
 			{
 				// Apply any differences from the saved XML to the value
-				GetNodeUnsafe()->ReadValueFromXML( GetCommandClassId(), child );
+				GetNodeUnsafe()->ReadValueFromXML( this , child );
 			}
 			else if (!strcmp( str, "TriggerRefreshValue" ) )
 			{

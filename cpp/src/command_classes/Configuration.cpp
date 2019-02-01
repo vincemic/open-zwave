@@ -127,21 +127,23 @@ bool Configuration::HandleMsg
 			// Create a new value
 			if( Node* node = GetNodeUnsafe() )
 			{
+				uint8 const endpoint = GetEndpoint(_instance);
+
 				switch( size )
 				{
 					case 1:
 					{
-					  	node->CreateValueByte( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, parameter, label, "", false, false, (uint8)paramValue, 0 );
+					  	node->CreateValueByte( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, parameter, label, "", false, false, (uint8)paramValue, 0, endpoint );
 						break;
 					}
 					case 2:
 					{
-					  	node->CreateValueShort( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, parameter, label, "", false, false, (int16)paramValue, 0 );
+					  	node->CreateValueShort( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, parameter, label, "", false, false, (int16)paramValue, 0, endpoint );
 						break;
 					}
 					case 4:
 					{
-					  	node->CreateValueInt( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, parameter, label, "", false, false, (int32)paramValue, 0 );
+					  	node->CreateValueInt( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, parameter, label, "", false, false, (int32)paramValue, 0, endpoint );
 						break;
 					}
 					default:

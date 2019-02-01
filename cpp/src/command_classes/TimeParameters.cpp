@@ -230,14 +230,15 @@ bool TimeParameters::SetValue
 void TimeParameters::CreateVars
 (
 	uint8 const _instance
-)
+)	
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueString( ValueID::ValueGenre_System, GetCommandClassId(), _instance, TimeParametersIndex_Date, "Date", "", true, false, "", 0 );
-		node->CreateValueString( ValueID::ValueGenre_System, GetCommandClassId(), _instance, TimeParametersIndex_Time, "Time", "", true, false, "", 0 );
-		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, TimeParametersIndex_Set, "Set Date/Time", 0);
-		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, TimeParametersIndex_Refresh, "Refresh Date/Time", 0);
+		uint8 const endpoint = GetEndpoint(_instance);
+		node->CreateValueString( ValueID::ValueGenre_System, GetCommandClassId(), _instance, TimeParametersIndex_Date, "Date", "", true, false, "", 0, endpoint  );
+		node->CreateValueString( ValueID::ValueGenre_System, GetCommandClassId(), _instance, TimeParametersIndex_Time, "Time", "", true, false, "", 0 , endpoint);
+		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, TimeParametersIndex_Set, "Set Date/Time", 0, endpoint);
+		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, TimeParametersIndex_Refresh, "Refresh Date/Time", 0, endpoint);
 
 	}
 }

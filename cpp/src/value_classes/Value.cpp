@@ -84,13 +84,14 @@ Value::Value
 	bool const _readOnly,
 	bool const _writeOnly,
 	bool const _isSet,
-	uint8 const _pollIntensity
+	uint8 const _pollIntensity,
+	uint8 const _endpointId
 ):
 	m_min( 0 ),
 	m_max( 0 ),
 	m_refreshTime(0),
 	m_verifyChanges( false ),
-	m_id( _homeId, _nodeId, _genre, _commandClassId, _instance, _index, _type ),
+	m_id( _homeId, _nodeId, _genre, _commandClassId, _instance, _index, _type, _endpointId ),
 	m_units( _units ),
 	m_readOnly( _readOnly ),
 	m_writeOnly( _writeOnly ),
@@ -170,7 +171,13 @@ void Value::ReadXML
 		index = (uint16)(intVal & 0x3FF);
 	}
 
-	m_id = ValueID( _homeId, _nodeId, genre, _commandClassId, instance, index, type );
+	uint8 endpoint = 1;
+	if (TIXML_SUCCESS == _valueElement->QueryIntAttribute("endpoint", &intVal))
+	{
+		endpoint = (uint8)intVal;
+	}
+
+	m_id = ValueID( _homeId, _nodeId, genre, _commandClassId, instance, index, type, endpoint );
 
 	char const* label = _valueElement->Attribute( "label" );
 	if( label )
@@ -294,6 +301,9 @@ void Value::WriteXML
 
 	snprintf( str, sizeof(str), "%d", m_id.GetInstance() );
 	_valueElement->SetAttribute( "instance", str );
+	
+	snprintf(str, sizeof(str), "%d", m_id.GetEndpointId() );
+	_valueElement->SetAttribute("endpoint", str);
 
 	snprintf( str, sizeof(str), "%d", (m_id.GetIndex() & 0x3FF) );
 	_valueElement->SetAttribute( "index", str );

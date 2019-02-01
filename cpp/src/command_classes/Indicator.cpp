@@ -159,6 +159,8 @@ void Indicator::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-	  	node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Indicator", "", false, false, false, 0 );
+		uint8 const endpoint = GetEndpoint(_instance);
+
+	  	node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Indicator", "", false, false, false, 0, endpoint );
 	}
 }

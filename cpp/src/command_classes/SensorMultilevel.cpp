@@ -349,6 +349,8 @@ bool SensorMultilevel::HandleMsg
 
 		if( Node* node = GetNodeUnsafe() )
 		{
+			uint8 const endpoint = GetEndpoint(_instance);
+
 			for( uint8 i = 1; i <= ( _length - 2 ); i++ )
 			{
 				for( uint8 j = 0; j < 8; j++ )
@@ -367,7 +369,7 @@ bool SensorMultilevel::HandleMsg
 						ValueDecimal* value = static_cast<ValueDecimal*>( GetValue( _instance, index ) );
 						if( value == NULL)
 						{
-							node->CreateValueDecimal(  ValueID::ValueGenre_User, GetCommandClassId(), _instance, index, c_sensorTypeNames[index], "", true, false, "0.0", 0  );
+							node->CreateValueDecimal(  ValueID::ValueGenre_User, GetCommandClassId(), _instance, index, c_sensorTypeNames[index], "", true, false, "0.0", 0, endpoint );
 						}
 					}
 				}
@@ -385,6 +387,8 @@ bool SensorMultilevel::HandleMsg
 		Node* node = GetNodeUnsafe();
 		if( node != NULL )
 		{
+			uint8 const endpoint = GetEndpoint(_instance);
+
 			char const* units = "";
 			switch( sensorType )
 			{
@@ -533,7 +537,7 @@ bool SensorMultilevel::HandleMsg
 			ValueDecimal* value = static_cast<ValueDecimal*>( GetValue( _instance, sensorType ) );
 			if( value == NULL)
 			{
-				node->CreateValueDecimal(  ValueID::ValueGenre_User, GetCommandClassId(), _instance, sensorType, c_sensorTypeNames[sensorType], units, true, false, "0.0", 0  );
+				node->CreateValueDecimal(  ValueID::ValueGenre_User, GetCommandClassId(), _instance, sensorType, c_sensorTypeNames[sensorType], units, true, false, "0.0", 0, endpoint  );
 				value = static_cast<ValueDecimal*>( GetValue( _instance, sensorType ) );
 			}
 			else

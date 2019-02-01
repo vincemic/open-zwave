@@ -287,17 +287,18 @@ void SwitchBinary::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
+		uint8 const endpoint = GetEndpoint(_instance);
 		switch( GetVersion() )
 		{
 			case 2:
 			{
-				node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, SwitchBinaryIndex_Duration, "Transition Duration", "", false, false, 0xff, 0 );
-				node->CreateValueBool( ValueID::ValueGenre_System, GetCommandClassId(), _instance, SwitchBinaryIndex_TargetState, "Target State", "", true, false, true, 0 );
+				node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, SwitchBinaryIndex_Duration, "Transition Duration", "", false, false, 0xff, 0, endpoint );
+				node->CreateValueBool( ValueID::ValueGenre_System, GetCommandClassId(), _instance, SwitchBinaryIndex_TargetState, "Target State", "", true, false, true, 0, endpoint );
 				// Fall through to version 1
 			}
 			case 1:
 			{
-				node->CreateValueBool( ValueID::ValueGenre_User, GetCommandClassId(), _instance, SwitchBinaryIndex_Level, "Switch", "", false, false, false, 0 );
+				node->CreateValueBool( ValueID::ValueGenre_User, GetCommandClassId(), _instance, SwitchBinaryIndex_Level, "Switch", "", false, false, false, 0, endpoint );
 				break;
 			}
 		}

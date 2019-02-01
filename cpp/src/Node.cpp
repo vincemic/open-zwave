@@ -2301,7 +2301,7 @@ ValueID Node::CreateValueID
 		ValueID::ValueType const _type
 )
 {
-	return ValueID( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _type );
+	return ValueID( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _type,(uint8) 0 );
 }
 
 //-----------------------------------------------------------------------------
@@ -2319,10 +2319,11 @@ bool Node::CreateValueBitSet
 		bool const _readOnly,
 		bool const _writeOnly,
 		int32 const _default,
-		uint8 const _pollIntensity
+		uint8 const _pollIntensity,
+		uint8 const _endpointId
 )
 {
-	ValueBitSet* value = new ValueBitSet( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _pollIntensity );
+	ValueBitSet* value = new ValueBitSet( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _pollIntensity, _endpointId );
 	ValueStore* store = GetValueStore();
 	if( store->AddValue( value ) )
 	{
@@ -2352,10 +2353,11 @@ bool Node::CreateValueBool
 		bool const _readOnly,
 		bool const _writeOnly,
 		bool const _default,
-		uint8 const _pollIntensity
+		uint8 const _pollIntensity,
+	    uint8 const _endpointId
 )
 {
-	ValueBool* value = new ValueBool( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _pollIntensity );
+	ValueBool* value = new ValueBool( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _pollIntensity, _endpointId );
 	ValueStore* store = GetValueStore();
 	if( store->AddValue( value ) )
 	{
@@ -2378,10 +2380,11 @@ bool Node::CreateValueButton
 		uint8 const _instance,
 		uint16 const _valueIndex,
 		string const& _label,
-		uint8 const _pollIntensity
+		uint8 const _pollIntensity,
+		uint8 const _endpointId
 )
 {
-	ValueButton* value = new ValueButton( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _pollIntensity );
+	ValueButton* value = new ValueButton( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _pollIntensity, _endpointId );
 	ValueStore* store = GetValueStore();
 	if( store->AddValue( value ) )
 	{
@@ -2408,10 +2411,11 @@ bool Node::CreateValueByte
 		bool const _readOnly,
 		bool const _writeOnly,
 		uint8 const _default,
-		uint8 const _pollIntensity
+		uint8 const _pollIntensity,
+	    uint8 const _endpointId
 )
 {
-	ValueByte* value = new ValueByte( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _pollIntensity );
+	ValueByte* value = new ValueByte( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _pollIntensity, _endpointId );
 	ValueStore* store = GetValueStore();
 	if( store->AddValue( value ) )
 	{
@@ -2438,10 +2442,11 @@ bool Node::CreateValueDecimal
 		bool const _readOnly,
 		bool const _writeOnly,
 		string const& _default,
-		uint8 const _pollIntensity
+		uint8 const _pollIntensity,
+	    uint8 const _endpointId
 )
 {
-	ValueDecimal* value = new ValueDecimal( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _pollIntensity );
+	ValueDecimal* value = new ValueDecimal( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _pollIntensity, _endpointId );
 	ValueStore* store = GetValueStore();
 	if( store->AddValue( value ) )
 	{
@@ -2468,10 +2473,11 @@ bool Node::CreateValueInt
 		bool const _readOnly,
 		bool const _writeOnly,
 		int32 const _default,
-		uint8 const _pollIntensity
+		uint8 const _pollIntensity,
+		uint8 const _endpointId
 )
 {
-	ValueInt* value = new ValueInt( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _pollIntensity );
+	ValueInt* value = new ValueInt( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _pollIntensity, _endpointId );
 	ValueStore* store = GetValueStore();
 	if( store->AddValue( value ) )
 	{
@@ -2500,10 +2506,11 @@ bool Node::CreateValueList
 	uint8 const _size,
 	vector<ValueList::Item> const& _items,
 	int32 const _default,
-	uint8 const _pollIntensity
+	uint8 const _pollIntensity,
+	uint8 const _endpointId
 )
 {
-	ValueList* value = new ValueList(m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _items, _default, _pollIntensity, _size);
+	ValueList* value = new ValueList(m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _items, _default, _pollIntensity, _endpointId, _size);
 	ValueStore* store = GetValueStore();
 	if (store->AddValue(value))
 	{
@@ -2530,10 +2537,11 @@ bool Node::CreateValueRaw
 		bool const _writeOnly,
 		uint8 const* _default,
 		uint8 const _length,
-		uint8 const _pollIntensity
+		uint8 const _pollIntensity,
+	    uint8 const _endpointId
 )
 {
-	ValueRaw* value = new ValueRaw( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _length, _pollIntensity );
+	ValueRaw* value = new ValueRaw( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _length, _pollIntensity, _endpointId );
 	ValueStore* store = GetValueStore();
 	if( store->AddValue( value ) )
 	{
@@ -2559,10 +2567,11 @@ bool Node::CreateValueSchedule
 		string const& _units,
 		bool const _readOnly,
 		bool const _writeOnly,
-		uint8 const _pollIntensity
+		uint8 const _pollIntensity,
+		uint8 const _endpointId
 )
 {
-	ValueSchedule* value = new ValueSchedule( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _pollIntensity );
+	ValueSchedule* value = new ValueSchedule( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _pollIntensity, _endpointId );
 	ValueStore* store = GetValueStore();
 	if( store->AddValue( value ) )
 	{
@@ -2589,10 +2598,11 @@ bool Node::CreateValueShort
 		bool const _readOnly,
 		bool const _writeOnly,
 		int16 const _default,
-		uint8 const _pollIntensity
+		uint8 const _pollIntensity,
+		uint8 const _endpointId
 )
 {
-	ValueShort* value = new ValueShort( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _pollIntensity );
+	ValueShort* value = new ValueShort( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _pollIntensity, _endpointId );
 	ValueStore* store = GetValueStore();
 	if( store->AddValue( value ) )
 	{
@@ -2619,10 +2629,11 @@ bool Node::CreateValueString
 		bool const _readOnly,
 		bool const _writeOnly,
 		string const& _default,
-		uint8 const _pollIntensity
+		uint8 const _pollIntensity,
+	    uint8 const _endpointId
 )
 {
-	ValueString* value = new ValueString( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _pollIntensity );
+	ValueString* value = new ValueString( m_homeId, m_nodeId, _genre, _commandClassId, _instance, _valueIndex, _label, _units, _readOnly, _writeOnly, _default, _pollIntensity, _endpointId );
 	ValueStore* store = GetValueStore();
 	if( store->AddValue( value ) )
 	{
@@ -2701,7 +2712,7 @@ bool Node::CreateValueFromXML
 //-----------------------------------------------------------------------------
 void Node::ReadValueFromXML
 (
-		uint8 const _commandClassId,
+		CommandClass * _commandClass,
 		TiXmlElement const* _valueElement
 )
 {
@@ -2716,13 +2727,13 @@ void Node::ReadValueFromXML
 		instance = (uint8)intVal;
 	}
 
-	uint16 index = 0;
+    uint16 index = 0;
 	if( TIXML_SUCCESS == _valueElement->QueryIntAttribute( "index", &intVal ) )
 	{
 		index = (uint16)intVal;
 	}
 
-	ValueID id = ValueID( m_homeId, m_nodeId, genre, _commandClassId, instance, index, type );
+	ValueID id = ValueID( m_homeId, m_nodeId, genre, _commandClass->GetCommandClassId(), instance, index, type, _commandClass->GetEndpoint(instance));
 
 	// Try to get the value from the ValueStore (everything except configuration parameters
 	// should already have been created when the command class instance count was read in).
@@ -2734,17 +2745,17 @@ void Node::ReadValueFromXML
 			// Check if values type are the same
 			ValueID::ValueType v_type = value->GetID().GetType();
 			if ( v_type == type ) {
-				value->ReadXML( m_homeId, m_nodeId, _commandClassId, _valueElement );
+				value->ReadXML( m_homeId, m_nodeId, _commandClass->GetCommandClassId(), _valueElement );
 				value->Release();
 			} else {
 				Log::Write( LogLevel_Info, m_nodeId, "xml value type (%s) is different to stored value type (%s). Value is recreate with xml params.", value->GetTypeNameFromEnum(type), value->GetTypeNameFromEnum(v_type) );
 				store->RemoveValue( value->GetID().GetValueStoreKey() );
-				CreateValueFromXML( _commandClassId, _valueElement );
+				CreateValueFromXML(_commandClass->GetCommandClassId(), _valueElement );
 			}
 		}
 		else
 		{
-			CreateValueFromXML( _commandClassId, _valueElement );
+			CreateValueFromXML(_commandClass->GetCommandClassId(), _valueElement );
 		}
 	}
 }

@@ -191,8 +191,10 @@ bool SoundSwitch::HandleMsg
 				items.push_back( item );
 			}
 			if (Node* node = GetNodeUnsafe()) {
-				node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, SoundSwitchIndex_Tones, "Tones", "", false, false, m_toneCount, items, 0, 0 );
-				node->CreateValueList( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, SoundSwitchIndex_Default_Tone, "Default Tone", "", false, false, m_toneCount, items, 0, 0 );
+				uint8 const endpoint = GetEndpoint(_instance);
+
+				node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, SoundSwitchIndex_Tones, "Tones", "", false, false, m_toneCount, items, 0, 0, endpoint );
+				node->CreateValueList( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, SoundSwitchIndex_Default_Tone, "Default Tone", "", false, false, m_toneCount, items, 0, 0, endpoint );
 			}
 			/* after we got the list of Tones, Get the Configuration */
 			Msg* msg = new Msg( "SoundSwitchCmd_Tones_Config_Get", GetNodeId(), REQUEST, FUNC_ID_ZW_SEND_DATA, true, true, FUNC_ID_APPLICATION_COMMAND_HANDLER, GetCommandClassId() );
@@ -309,7 +311,9 @@ void SoundSwitch::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, SoundSwitchIndex_Tone_Count, "Number of Tones", "", true, false, 0, 0 );
-		node->CreateValueByte( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, SoundSwitchIndex_Volume, "Volume", "", false, false, 100, 0);
+		uint8 const endpoint = GetEndpoint(_instance);
+
+		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, SoundSwitchIndex_Tone_Count, "Number of Tones", "", true, false, 0, 0, endpoint );
+		node->CreateValueByte( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, SoundSwitchIndex_Volume, "Volume", "", false, false, 100, 0, endpoint);
 	}
 }

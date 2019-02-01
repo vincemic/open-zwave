@@ -364,13 +364,15 @@ bool Color::HandleMsg
 		}
 		if( Node* node = GetNodeUnsafe() )
 		{
+			uint8 const endpoint = GetEndpoint(_instance);
+
 			if ( ValueString *color = static_cast<ValueString *>( GetValue( _instance, Value_Color ) ) )
 			{
 				color->SetUnits(helpstr);
 			}
 			else
 			{
-				node->CreateValueString( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_Color, "Color", helpstr, false, false, "#000000", 0 );
+				node->CreateValueString( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_Color, "Color", helpstr, false, false, "#000000", 0, endpoint );
 			}
 
 			/* always create the ColorIndex Value - If the device doesn't support Indexed Colors, we fake it up when sending */
@@ -384,12 +386,12 @@ bool Color::HandleMsg
 					item.m_value = i;
 					items.push_back( item );
 				}
-				node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_Color_Index, "Color Index", "", false, false, (sizeof(c_ColorIndex)/sizeof(c_ColorIndex[0])), items, 0, 0 );
+				node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_Color_Index, "Color Index", "", false, false, (sizeof(c_ColorIndex)/sizeof(c_ColorIndex[0])), items, 0, 0, endpoint);
 
 			}
 
 			if (GetVersion() > 1)
-				node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_Color_Duration, "Duration", "Sec", false, false, 255, 0 );
+				node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_Color_Duration, "Duration", "Sec", false, false, 255, 0, endpoint);
 
 		}
 		return true;
@@ -1099,8 +1101,10 @@ void Color::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
+		uint8 const endpoint = GetEndpoint(_instance);
+
 		/* XXX TODO convert this to a bitset when we implement */
-		node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, Value_Color_Channels_Capabilities, "Color Channels", "", false, false, m_capabilities, 0 );
+		node->CreateValueInt( ValueID::ValueGenre_System, GetCommandClassId(), _instance, Value_Color_Channels_Capabilities, "Color Channels", "", false, false, m_capabilities, 0, endpoint );
 	}
 
 

@@ -274,6 +274,8 @@ bool ThermostatSetpoint::HandleMsg
 	{
 		if( Node* node = GetNodeUnsafe() )
 		{
+			uint8 const endpoint = GetEndpoint(_instance);
+
 			// We have received the supported thermostat setpoints from the Z-Wave device
 			Log::Write( LogLevel_Info, GetNodeId(), "Received supported thermostat setpoints" );
 
@@ -322,7 +324,7 @@ bool ThermostatSetpoint::HandleMsg
 						{
 							string setpointName = c_setpointName[index];
 
-							node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, index, setpointName, "C", false, false, "0.0", 0 );
+							node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, index, setpointName, "C", false, false, "0.0", 0, endpoint );
 							Log::Write( LogLevel_Info, GetNodeId(), "    Added setpoint: %s", setpointName.c_str() );
 						}
 					}
@@ -337,6 +339,8 @@ bool ThermostatSetpoint::HandleMsg
 	{
 		if( Node* node = GetNodeUnsafe() )
 		{
+			uint8 const endpoint = GetEndpoint(_instance);
+
 			// We have received the capabilites for supported setpoint Type
 			uint8 scale;
 			uint8 precision = 0;
@@ -352,8 +356,8 @@ bool ThermostatSetpoint::HandleMsg
 			{
 				string setpointName = c_setpointName[index];
 
-				node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ThermostatSetpoint_Minimum + index, setpointName + "_minimum", "C", false, false, minValue, 0 );
-				node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ThermostatSetpoint_Maximum + index, setpointName + "_maximum", "C", false, false, maxValue, 0 );
+				node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ThermostatSetpoint_Minimum + index, setpointName + "_minimum", "C", false, false, minValue, 0, endpoint );
+				node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ThermostatSetpoint_Maximum + index, setpointName + "_maximum", "C", false, false, maxValue, 0, endpoint );
 				Log::Write( LogLevel_Info, GetNodeId(), "    Added setpoint: %s", setpointName.c_str() );
 			}
 
@@ -405,6 +409,8 @@ void ThermostatSetpoint::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-	  	node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, _index, "Setpoint", "C", false, false, "0.0", 0  );
+		uint8 const endpoint = GetEndpoint(_instance);
+
+	  	node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, _index, "Setpoint", "C", false, false, "0.0", 0, endpoint);
 	}
 }

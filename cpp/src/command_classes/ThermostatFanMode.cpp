@@ -353,7 +353,8 @@ void ThermostatFanMode::CreateVars
 
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Fan Mode", "", false, false, 1, m_supportedModes, m_supportedModes[0].m_value, 0 );
+		uint8 const endpoint = GetEndpoint(_instance);
+		node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Fan Mode", "", false, false, 1, m_supportedModes, m_supportedModes[0].m_value, 0, endpoint );
 	}
 }
 

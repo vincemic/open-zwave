@@ -50,9 +50,10 @@ ValueSchedule::ValueSchedule
 	string const& _units,
 	bool const _readOnly,
 	bool const _writeOnly,
-	uint8 const _pollIntensity
+	uint8 const _pollIntensity,
+	uint8 const _endpointId
 ):
-	Value( _homeId, _nodeId, _genre, _commandClassId, _instance, _index, ValueID::ValueType_Schedule, _label, _units, _readOnly, _writeOnly, false, _pollIntensity ),
+	Value( _homeId, _nodeId, _genre, _commandClassId, _instance, _index, ValueID::ValueType_Schedule, _label, _units, _readOnly, _writeOnly, false, _pollIntensity, _endpointId ),
 	m_numSwitchPoints( 0 )
 
 {

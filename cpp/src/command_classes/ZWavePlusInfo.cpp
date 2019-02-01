@@ -184,9 +184,11 @@ void ZWavePlusInfo::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ZWavePlusInfoIndex_Version, "ZWave+ Version", "", true, false, 0, 0 );
-		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ZWavePlusInfoIndex_InstallerIcon, "InstallerIcon", "", true, false, 0, 0 );
-		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ZWavePlusInfoIndex_UserIcon, "UserIcon", "", true, false, 0, 0 );
+		uint8 const endpoint = GetEndpoint(_instance);
+
+		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ZWavePlusInfoIndex_Version, "ZWave+ Version", "", true, false, 0, 0, endpoint );
+		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ZWavePlusInfoIndex_InstallerIcon, "InstallerIcon", "", true, false, 0, 0, endpoint );
+		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ZWavePlusInfoIndex_UserIcon, "UserIcon", "", true, false, 0, 0, endpoint );
 
 	}
 }

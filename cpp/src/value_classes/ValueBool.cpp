@@ -53,9 +53,10 @@ ValueBool::ValueBool
 	bool const _readOnly,
 	bool const _writeOnly,
 	bool const _value,
-	uint8 const _pollIntensity
-):
-  	Value( _homeId, _nodeId, _genre, _commandClassId, _instance, _index, ValueID::ValueType_Bool, _label, _units, _readOnly, _writeOnly, false, _pollIntensity ),
+	uint8 const _pollIntensity,
+	uint8 const _endpointId
+): 
+  	Value( _homeId, _nodeId, _genre, _commandClassId, _instance, _index, ValueID::ValueType_Bool, _label, _units, _readOnly, _writeOnly, false, _pollIntensity, _endpointId ),
 	m_value( _value ),
 	m_valueCheck( false )
 {

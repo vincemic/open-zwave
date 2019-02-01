@@ -496,6 +496,7 @@ bool UserCode::HandleMsg
 		if( Node* node = GetNodeUnsafe() )
 		{
 			string data;
+			uint8 const endpoint = GetEndpoint(_instance);
 
 			for( uint16 i = 0; i <= m_userCodeCount; i++ )
 			{
@@ -503,19 +504,19 @@ bool UserCode::HandleMsg
 				if (i == 0)
 				{
 					snprintf( str, sizeof(str), "Enrollment Code");
-					node->CreateValueString( ValueID::ValueGenre_User, GetCommandClassId(), _instance, i, str, "", true, false, data, 0 );
+					node->CreateValueString( ValueID::ValueGenre_User, GetCommandClassId(), _instance, i, str, "", true, false, data, 0, endpoint );
 				}
 				else
 				{
 					snprintf( str, sizeof(str), "Code %d:", i);
-					node->CreateValueString( ValueID::ValueGenre_User, GetCommandClassId(), _instance, i, str, "", false, false, data, 0 );
+					node->CreateValueString( ValueID::ValueGenre_User, GetCommandClassId(), _instance, i, str, "", false, false, data, 0, endpoint );
 				}
 				m_userCode[i].status = UserCode_Available;
 				memcpy(&m_userCode[i].usercode, 0, 10);
 			}
 			if (m_exposeRawValueID) {
-				node->CreateValueRaw( ValueID::ValueGenre_User, GetCommandClassId(), _instance, UserCodeIndex_RawValue, "Raw UserCode", "", false, false, 0, 0, 0);
-				node->CreateValueShort( ValueID::ValueGenre_User, GetCommandClassId(), _instance, UserCodeIndex_RawValueIndex, "Raw UserCode Index", "", false, false, 0, 0);
+				node->CreateValueRaw( ValueID::ValueGenre_User, GetCommandClassId(), _instance, UserCodeIndex_RawValue, "Raw UserCode", "", false, false, 0, 0, 0, endpoint);
+				node->CreateValueShort( ValueID::ValueGenre_User, GetCommandClassId(), _instance, UserCodeIndex_RawValueIndex, "Raw UserCode Index", "", false, false, 0, 0, endpoint);
 			}
 		}
 		return true;
@@ -726,8 +727,10 @@ void UserCode::CreateVars
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, UserCodeIndex_Count, "Code Count", "", true, false, 0, 0 );
-		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, UserCodeIndex_Refresh, "Refresh All UserCodes", 0);
-		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, UserCodeIndex_RemoveCode, "Remove User Code", "", false, true, 0, 0);
+		uint8 const endpoint = GetEndpoint(_instance);
+
+		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, UserCodeIndex_Count, "Code Count", "", true, false, 0, 0, endpoint );
+		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, UserCodeIndex_Refresh, "Refresh All UserCodes", 0, endpoint);
+		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, UserCodeIndex_RemoveCode, "Remove User Code", "", false, true, 0, 0, endpoint);
 	}
 }
