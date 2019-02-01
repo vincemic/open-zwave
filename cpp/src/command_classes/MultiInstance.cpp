@@ -576,35 +576,35 @@ void MultiInstance::HandleMultiChannelCapabilityReport
 					}
 					uint8 i;
 					// Find the next free instance of this class
-					for( i = 1; i <= 127; i++ )
-					{
-						if( m_endPointMap == MultiInstanceMapAll ) // Include the non-endpoint instance
-						{
-							if( !cc->GetInstances()->IsSet( i ) )
-							{
-								break;
-							}
-						}
-						// Reuse non-endpoint instances first time we see it
-						else if( i == 1 && cc->GetInstances()->IsSet( i ) && cc->GetEndPoint( i ) == 0 )
-						{
-							break;
-						}
-						// Find the next free instance
-						else if( !cc->GetInstances()->IsSet( i ) )
-						{
-							break;
-						}
-					}
-					cc->SetInstance( i );
-					cc->SetEndPoint( i, endPoint );
+					//for( i = 1; i <= 127; i++ )
+					//{
+					//	if( m_endPointMap == MultiInstanceMapAll ) // Include the non-endpoint instance
+					//	{
+					//		if( !cc->GetInstances()->IsSet( i ) )
+					//		{
+					//			break;
+					//		}
+					//	}
+					//	// Reuse non-endpoint instances first time we see it
+					//	else if( i == 1 && cc->GetInstances()->IsSet( i ) && cc->GetEndPoint( i ) == 0 )
+					//	{
+					//		break;
+					//	}
+					//	// Find the next free instance
+					//	else if( !cc->GetInstances()->IsSet( i ) )
+					//	{
+					//		break;
+					//	}
+					//}
+					cc->SetInstance(endPoint);
+					cc->SetEndPoint(endPoint, endPoint );
 					// If we support the BASIC command class and it is mapped to a command class
 					// assigned to this end point, make sure the BASIC command class is also associated
 					// with this end point.
 					if( basic != NULL && basic->GetMapping() == commandClassId )
 					{
-						basic->SetInstance( i );
-						basic->SetEndPoint( i, endPoint );
+						basic->SetInstance(endPoint);
+						basic->SetEndPoint(endPoint, endPoint );
 					}
 				}
 			}

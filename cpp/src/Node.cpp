@@ -1665,7 +1665,7 @@ void Node::SetSecuredClasses
 				// Start with an instance count of one.  If the device supports COMMMAND_CLASS_MULTI_INSTANCE
 				// then some command class instance counts will increase once the responses to the RequestState
 				// call at the end of this method have been processed.
-				pCommandClass->SetInstance( 1 );
+				//pCommandClass->SetInstance( 1 );
 
 				/* set our Static Request Flags */
 				uint8 request = 0;

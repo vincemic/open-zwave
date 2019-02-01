@@ -252,6 +252,7 @@ int main( int argc, char* argv[] )
 	Options::Get()->AddOptionInt( "PollInterval", 500 );
 	Options::Get()->AddOptionBool( "IntervalBetweenPolls", true );
 	Options::Get()->AddOptionBool("ValidateValueChanges", true);
+	Options::Get()->AddOptionString("NetworkKey", "0x50,0x32,0xD2,0x59,0xBB,0x89,0xA9,0xF9,0xDE,0xE0,0x6F,0xC8,0xB2,0x9D,0x96,0xC6", false);
 	Options::Get()->Lock();
 
 	Manager::Create();
@@ -265,7 +266,7 @@ int main( int argc, char* argv[] )
 	// Add a Z-Wave Driver
 	// Modify this line to set the correct serial port for your PC interface.
 
-	string port = "\\\\.\\COM4";
+	string port = "\\\\.\\COM11";
 
 	Manager::Get()->AddDriver( ( argc > 1 ) ? argv[1] : port );
 	//Manager::Get()->AddDriver( "HID Controller", Driver::ControllerInterface_Hid );
