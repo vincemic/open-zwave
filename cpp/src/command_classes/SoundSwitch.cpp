@@ -304,12 +304,13 @@ bool SoundSwitch::SetValue
 //-----------------------------------------------------------------------------
 void SoundSwitch::CreateVars
 (
-		uint8 const _instance
+		uint8 const _instance,
+		uint8 const _endpoint
 )
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, SoundSwitchIndex_Tone_Count, "Number of Tones", "", true, false, 0, 0 );
-		node->CreateValueByte( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, SoundSwitchIndex_Volume, "Volume", "", false, false, 100, 0);
+		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, SoundSwitchIndex_Tone_Count, "Number of Tones", "", true, false, 0, 0, _endpoint);
+		node->CreateValueByte( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, SoundSwitchIndex_Volume, "Volume", "", false, false, 100, 0, _endpoint);
 	}
 }

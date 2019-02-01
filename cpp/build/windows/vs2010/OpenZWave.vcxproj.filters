@@ -390,6 +390,9 @@
     <ClInclude Include="..\..\..\src\command_classes\SimpleAVCommandItem.h">
       <Filter>Command Classes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\TimerThread.h" />
+    <ClInclude Include="..\..\..\src\Localization.h" />
+    <ClInclude Include="..\..\..\src\command_classes\SoundSwitch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Driver.cpp">
@@ -749,5 +752,9 @@
     <ClCompile Include="..\..\..\src\command_classes\SimpleAVCommandItem.cpp">
       <Filter>Command Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\TimerThread.cpp" />
+    <ClCompile Include="..\..\..\src\Localization.cpp" />
+    <ClCompile Include="..\..\..\src\NotificationCCTypes.cpp" />
+    <ClCompile Include="..\..\..\src\command_classes\SoundSwitch.cpp" />
   </ItemGroup>
 </Project>

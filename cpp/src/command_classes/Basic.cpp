@@ -230,7 +230,7 @@ bool Basic::HandleMsg
 			Log::Write( LogLevel_Info, GetNodeId(), "Received Basic set from node %d: level=%d.  Sending event notification.", GetNodeId(), _data[1] );
 
 			Notification* notification = new Notification( Notification::Type_NodeEvent );
-			notification->SetHomeNodeIdAndInstance( GetHomeId(), GetNodeId(), _instance );
+			notification->SetHomeNodeIdAndInstance( GetHomeId(), GetNodeId(), _instance, GetEndPoint(_instance) );
 			notification->SetEvent( _data[1] );
 			GetDriver()->QueueNotification( notification );
 		}
@@ -275,7 +275,8 @@ bool Basic::SetValue
 //-----------------------------------------------------------------------------
 void Basic::CreateVars
 (
-	uint8 const _instance
+	uint8 const _instance,
+	uint8 const _endpoint
 )
 {
 	m_instances.push_back(_instance);

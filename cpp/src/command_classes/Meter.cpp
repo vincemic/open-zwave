@@ -338,12 +338,12 @@ bool Meter::HandleSupportedReport
 		}
 
 		// Create the export flag
-		node->CreateValueBool( ValueID::ValueGenre_User, GetCommandClassId(), _instance, MeterIndex_Exporting, "Exporting", "", true, false, false, 0 );
+		node->CreateValueBool( ValueID::ValueGenre_User, GetCommandClassId(), _instance, MeterIndex_Exporting, "Exporting", "", true, false, false, 0, GetEndPoint(_instance));
 
 		// Create the reset button
 		if( canReset )
 		{
-			node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, MeterIndex_Reset, "Reset", 0 );
+			node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, MeterIndex_Reset, "Reset", 0, GetEndPoint(_instance));
 		}
 
 		Log::Write( LogLevel_Info, GetNodeId(), "Received Meter supported report from node %d, %s", GetNodeId(), msg.c_str() );
@@ -551,7 +551,8 @@ bool Meter::SetValue
 //-----------------------------------------------------------------------------
 void Meter::CreateVars
 (
-	uint8 const _instance
+	uint8 const _instance,
+	uint8 const _endpoint
 )
 {
 	if( Node* node = GetNodeUnsafe() )

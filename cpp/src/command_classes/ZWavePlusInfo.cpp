@@ -179,14 +179,15 @@ bool ZWavePlusInfo::HandleMsg
 //-----------------------------------------------------------------------------
 void ZWavePlusInfo::CreateVars
 (
-		uint8 const _instance
+		uint8 const _instance,
+		uint8 const _endpoint
 )
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ZWavePlusInfoIndex_Version, "ZWave+ Version", "", true, false, 0, 0 );
-		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ZWavePlusInfoIndex_InstallerIcon, "InstallerIcon", "", true, false, 0, 0 );
-		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ZWavePlusInfoIndex_UserIcon, "UserIcon", "", true, false, 0, 0 );
+		node->CreateValueByte( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ZWavePlusInfoIndex_Version, "ZWave+ Version", "", true, false, 0, 0,_endpoint );
+		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ZWavePlusInfoIndex_InstallerIcon, "InstallerIcon", "", true, false, 0, 0, _endpoint);
+		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, ZWavePlusInfoIndex_UserIcon, "UserIcon", "", true, false, 0, 0, _endpoint);
 
 	}
 }

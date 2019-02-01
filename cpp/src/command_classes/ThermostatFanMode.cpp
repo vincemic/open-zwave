@@ -108,7 +108,7 @@ void ThermostatFanMode::ReadXML
 		{
 			m_supportedModes = supportedModes;
 			ClearStaticRequest( StaticRequest_Values );
-			CreateVars( 1 );
+			CreateVars( 1 , GetEndPoint(1) );
 		}
 	}
 }
@@ -298,7 +298,7 @@ bool ThermostatFanMode::HandleMsg
 		}
 
 		ClearStaticRequest( StaticRequest_Values );
-		CreateVars( _instance );
+		CreateVars( _instance, GetEndPoint(_instance) );
 		return true;
 	}
 
@@ -343,7 +343,8 @@ bool ThermostatFanMode::SetValue
 //-----------------------------------------------------------------------------
 void ThermostatFanMode::CreateVars
 (
-	uint8 const _instance
+	uint8 const _instance,
+	uint8 const _endpoint
 )
 {
 	if( m_supportedModes.empty() )

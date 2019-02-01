@@ -367,7 +367,7 @@ bool SensorMultilevel::HandleMsg
 						ValueDecimal* value = static_cast<ValueDecimal*>( GetValue( _instance, index ) );
 						if( value == NULL)
 						{
-							node->CreateValueDecimal(  ValueID::ValueGenre_User, GetCommandClassId(), _instance, index, c_sensorTypeNames[index], "", true, false, "0.0", 0  );
+							node->CreateValueDecimal(  ValueID::ValueGenre_User, GetCommandClassId(), _instance, index, c_sensorTypeNames[index], "", true, false, "0.0", 0 ,GetEndPoint(_instance) );
 						}
 					}
 				}
@@ -560,7 +560,8 @@ bool SensorMultilevel::HandleMsg
 //-----------------------------------------------------------------------------
 void SensorMultilevel::CreateVars
 (
-		uint8 const _instance
+		uint8 const _instance,
+		uint8 const _endpoint
 )
 {
 	// Don't create anything here. We do it in the report.

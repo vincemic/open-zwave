@@ -189,7 +189,8 @@ void CommandClass::SetInstances
 //-----------------------------------------------------------------------------
 void CommandClass::SetInstance
 (
-		uint8 const _endPoint
+		uint8 const _endPoint,
+		uint8 co
 )
 {
 	if( !m_instances.IsSet( _endPoint ) )

@@ -168,7 +168,7 @@ void ThermostatMode::ReadXML
 		{
 			m_supportedModes = supportedModes;
 			ClearStaticRequest( StaticRequest_Values );
-			CreateVars( 1 );
+			CreateVars( 1, GetEndPoint(1) );
 		}
 	}
 }
@@ -364,7 +364,7 @@ bool ThermostatMode::HandleMsg
 			}
 		}
 		ClearStaticRequest( StaticRequest_Values );
-		CreateVars( _instance );
+		CreateVars( _instance, GetEndPoint(_instance) );
 		return true;
 	}
 
@@ -407,7 +407,8 @@ bool ThermostatMode::SetValue
 //-----------------------------------------------------------------------------
 void ThermostatMode::CreateVars
 (
-	uint8 const _instance
+	uint8 const _instance,
+	uint8 const _endpoint
 )
 {
 	// There are number of ways to get here...each needs to be handled differently:

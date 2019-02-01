@@ -106,13 +106,14 @@ bool BasicWindowCovering::SetValue
 //-----------------------------------------------------------------------------
 void BasicWindowCovering::CreateVars
 (
-	uint8 const _instance
+	uint8 const _instance,
+	uint8 const _endpoint
 )
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueButton( ValueID::ValueGenre_User, GetCommandClassId(), _instance, BasicWindowCoveringIndex_Open, "Open", 0 );
-		node->CreateValueButton( ValueID::ValueGenre_User, GetCommandClassId(), _instance, BasicWindowCoveringIndex_Close, "Close", 0 );
+		node->CreateValueButton( ValueID::ValueGenre_User, GetCommandClassId(), _instance, BasicWindowCoveringIndex_Open, "Open", 0, _endpoint);
+		node->CreateValueButton( ValueID::ValueGenre_User, GetCommandClassId(), _instance, BasicWindowCoveringIndex_Close, "Close", 0, _endpoint);
 	}
 }
 

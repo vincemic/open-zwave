@@ -322,7 +322,7 @@ bool ThermostatSetpoint::HandleMsg
 						{
 							string setpointName = c_setpointName[index];
 
-							node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, index, setpointName, "C", false, false, "0.0", 0 );
+							node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, index, setpointName, "C", false, false, "0.0", 0, GetEndPoint(_instance));
 							Log::Write( LogLevel_Info, GetNodeId(), "    Added setpoint: %s", setpointName.c_str() );
 						}
 					}
@@ -352,8 +352,8 @@ bool ThermostatSetpoint::HandleMsg
 			{
 				string setpointName = c_setpointName[index];
 
-				node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ThermostatSetpoint_Minimum + index, setpointName + "_minimum", "C", false, false, minValue, 0 );
-				node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ThermostatSetpoint_Maximum + index, setpointName + "_maximum", "C", false, false, maxValue, 0 );
+				node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ThermostatSetpoint_Minimum + index, setpointName + "_minimum", "C", false, false, minValue, 0, GetEndPoint(_instance) );
+				node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, ThermostatSetpoint_Maximum + index, setpointName + "_maximum", "C", false, false, maxValue, 0, GetEndPoint(_instance) );
 				Log::Write( LogLevel_Info, GetNodeId(), "    Added setpoint: %s", setpointName.c_str() );
 			}
 
@@ -400,11 +400,12 @@ bool ThermostatSetpoint::SetValue
 void ThermostatSetpoint::CreateVars
 (
 	uint8 const _instance,
+	uint8 const _endpoint,
 	uint8 const _index
 )
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-	  	node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, _index, "Setpoint", "C", false, false, "0.0", 0  );
+	  	node->CreateValueDecimal( ValueID::ValueGenre_User, GetCommandClassId(), _instance, _index, "Setpoint", "C", false, false, "0.0", 0, GetEndPoint(_instance)  );
 	}
 }

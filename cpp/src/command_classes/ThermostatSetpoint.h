@@ -60,7 +60,7 @@ namespace OpenZWave
 		virtual uint8 GetMaxVersion(){ return 3; }
 
 	public:
-		virtual void CreateVars( uint8 const _instance, uint8 const _index );
+		virtual void CreateVars( uint8 const _instance, uint8 const _endpoint, uint8 const _index );
 
 	private:
 		ThermostatSetpoint( uint32 const _homeId, uint8 const _nodeId );

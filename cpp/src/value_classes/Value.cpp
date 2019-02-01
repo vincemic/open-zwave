@@ -84,13 +84,14 @@ Value::Value
 	bool const _readOnly,
 	bool const _writeOnly,
 	bool const _isSet,
-	uint8 const _pollIntensity
+	uint8 const _pollIntensity,
+	uint8 const _endpoint
 ):
 	m_min( 0 ),
 	m_max( 0 ),
 	m_refreshTime(0),
 	m_verifyChanges( false ),
-	m_id( _homeId, _nodeId, _genre, _commandClassId, _instance, _index, _type ),
+	m_id( _homeId, _nodeId, _genre, _commandClassId, _instance, _index, _type, _endpoint ),
 	m_units( _units ),
 	m_readOnly( _readOnly ),
 	m_writeOnly( _writeOnly ),

@@ -236,7 +236,8 @@ bool Clock::SetValue
 //-----------------------------------------------------------------------------
 void Clock::CreateVars
 (
-	uint8 const _instance
+	uint8 const _instance,
+	uint8 const _endpoint
 )
 {
 	if( Node* node = GetNodeUnsafe() )

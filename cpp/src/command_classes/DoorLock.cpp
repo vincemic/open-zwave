@@ -547,12 +547,13 @@ void DoorLock::SetValueBasic
 //-----------------------------------------------------------------------------
 void DoorLock::CreateVars
 (
-	uint8 const _instance
+	uint8 const _instance,
+	uint8 const _endpoint
 )
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-	  	node->CreateValueBool( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_Lock, "Locked", "", false, false, false, 0 );
+	  	node->CreateValueBool( ValueID::ValueGenre_User, GetCommandClassId(), _instance, Value_Lock, "Locked", "", false, false, false, 0, _endpoint);
 
 	  	/* Complex Lock Option */
 	  	{

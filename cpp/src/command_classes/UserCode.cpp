@@ -720,14 +720,15 @@ bool UserCode::SetValue
 //-----------------------------------------------------------------------------
 void UserCode::CreateVars
 (
-	uint8 const _instance
+	uint8 const _instance,
+	uint8 const _endpoint
 
 )
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, UserCodeIndex_Count, "Code Count", "", true, false, 0, 0 );
-		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, UserCodeIndex_Refresh, "Refresh All UserCodes", 0);
-		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, UserCodeIndex_RemoveCode, "Remove User Code", "", false, true, 0, 0);
+		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, UserCodeIndex_Count, "Code Count", "", true, false, 0, 0, _endpoint);
+		node->CreateValueButton( ValueID::ValueGenre_System, GetCommandClassId(), _instance, UserCodeIndex_Refresh, "Refresh All UserCodes", 0, _endpoint);
+		node->CreateValueShort( ValueID::ValueGenre_System, GetCommandClassId(), _instance, UserCodeIndex_RemoveCode, "Remove User Code", "", false, true, 0, 0, _endpoint);
 	}
 }

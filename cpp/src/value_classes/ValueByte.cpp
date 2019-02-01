@@ -53,9 +53,10 @@ ValueByte::ValueByte
 	bool const _readOnly,
 	bool const _writeOnly,
 	uint8 const _value,
-	uint8 const _pollIntensity
+	uint8 const _pollIntensity,
+	uint8 const _endpoint
 ):
-	Value( _homeId, _nodeId, _genre, _commandClassId, _instance, _index, ValueID::ValueType_Byte, _label, _units, _readOnly, _writeOnly, false, _pollIntensity ),
+	Value( _homeId, _nodeId, _genre, _commandClassId, _instance, _index, ValueID::ValueType_Byte, _label, _units, _readOnly, _writeOnly, false, _pollIntensity, _endpoint),
 	m_value( _value ),
 	m_valueCheck( false )
 {

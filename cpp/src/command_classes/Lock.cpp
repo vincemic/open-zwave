@@ -154,12 +154,13 @@ bool Lock::SetValue
 //-----------------------------------------------------------------------------
 void Lock::CreateVars
 (
-	uint8 const _instance
+	uint8 const _instance,
+	uint8 const _endpoint
 )
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-	  	node->CreateValueBool( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Locked", "", false, false, false, 0 );
+	  	node->CreateValueBool( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Locked", "", false, false, false, 0, _endpoint);
 	}
 }
 

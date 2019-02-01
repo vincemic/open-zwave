@@ -62,7 +62,7 @@ namespace OpenZWave
 		void Set( uint8 const _level );
 
 	protected:
-		virtual void CreateVars( uint8 const _instance );
+		virtual void CreateVars( uint8 const _instance, uint8 _endpoint );
 
 	private:
 		Basic( uint32 const _homeId, uint8 const _nodeId );

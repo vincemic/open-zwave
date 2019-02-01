@@ -208,7 +208,8 @@ void SwitchAll::On
 //-----------------------------------------------------------------------------
 void SwitchAll::CreateVars
 (
-	uint8 const _instance
+	uint8 const _instance,
+	uint8 const _endpoint
 )
 {
 	if( Node* node = GetNodeUnsafe() )
@@ -222,7 +223,7 @@ void SwitchAll::CreateVars
 			items.push_back( item );
 		}
 
-		node->CreateValueList(  ValueID::ValueGenre_System, GetCommandClassId(), _instance, 0, "Switch All", "", false, false, 1, items, 0, 0 );
+		node->CreateValueList(  ValueID::ValueGenre_System, GetCommandClassId(), _instance, 0, "Switch All", "", false, false, 1, items, 0, 0, _endpoint);
 	}
 }
 

@@ -53,9 +53,10 @@ ValueRaw::ValueRaw
 	bool const _writeOnly,
 	uint8 const* _value,
 	uint8 const _length,
-	uint8 const _pollIntensity
+	uint8 const _pollIntensity,
+	uint8 const _endpoint
 ):
-	Value( _homeId, _nodeId, _genre, _commandClassId, _instance, _index, ValueID::ValueType_Raw, _label, _units, _readOnly, _writeOnly, false, _pollIntensity ),
+	Value( _homeId, _nodeId, _genre, _commandClassId, _instance, _index, ValueID::ValueType_Raw, _label, _units, _readOnly, _writeOnly, false, _pollIntensity, _endpoint),
 	m_value( NULL ),
 	m_valueLength( _length ),
 	m_valueCheck ( NULL ),

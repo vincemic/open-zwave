@@ -316,12 +316,13 @@ bool Security::HandleMsg
 //-----------------------------------------------------------------------------
 void Security::CreateVars
 (
-		uint8 const _instance
+	uint8 const _instance,
+	uint8 const _endpoint
 )
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-		node->CreateValueBool( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 0, "Secured", "", true, false, false, 0 );
+		node->CreateValueBool( ValueID::ValueGenre_System, GetCommandClassId(), _instance, 0, "Secured", "", true, false, false, 0, _endpoint );
 	}
 }
 

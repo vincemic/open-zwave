@@ -407,7 +407,8 @@ bool BarrierOperator::SetValue
 //-----------------------------------------------------------------------------
 void BarrierOperator::CreateVars
 (
-		uint8 const _instance
+		uint8 const _instance,
+		uint8 const _endpoint
 )
 {
 	if (Node* node = GetNodeUnsafe())
@@ -422,7 +423,7 @@ void BarrierOperator::CreateVars
 				item.m_value = i;
 				items.push_back( item );
 			}
-			node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, BarrierOperatorLabel_Index, "Barrier State", "", false, false, size, items, 0, 0 );
+			node->CreateValueList( ValueID::ValueGenre_User, GetCommandClassId(), _instance, BarrierOperatorLabel_Index, "Barrier State", "", false, false, size, items, 0, 0, _endpoint );
 		}
 		{
 			vector<ValueList::Item> items;
@@ -434,10 +435,10 @@ void BarrierOperator::CreateVars
 				item.m_value = i;
 				items.push_back( item );
 			}
-			node->CreateValueList( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, BarrierOperatorSupportedSignals_Index, "Supported Signals", "", true, false, size, items, 0, 0 );
+			node->CreateValueList( ValueID::ValueGenre_Config, GetCommandClassId(), _instance, BarrierOperatorSupportedSignals_Index, "Supported Signals", "", true, false, size, items, 0, 0, _endpoint );
 		}
-		node->CreateValueBool(ValueID::ValueGenre_Config, GetCommandClassId(), _instance, BarrierOperatorAudible_Index, "Audible Notification", "", false, false, false, 0);
-		node->CreateValueBool(ValueID::ValueGenre_Config, GetCommandClassId(), _instance, BarrierOperatorVisual_Index, "Visual Notification", "", false, false, false, 0);
+		node->CreateValueBool(ValueID::ValueGenre_Config, GetCommandClassId(), _instance, BarrierOperatorAudible_Index, "Audible Notification", "", false, false, false, 0, _endpoint);
+		node->CreateValueBool(ValueID::ValueGenre_Config, GetCommandClassId(), _instance, BarrierOperatorVisual_Index, "Visual Notification", "", false, false, false, 0, _endpoint);
 
 
 	}

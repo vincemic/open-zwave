@@ -288,22 +288,47 @@ namespace OpenZWave
 		// Construct a value id for use in notifications
 		ValueID( uint32 const _homeId, uint8 const _nodeId ):
 			m_id1( 0 ),
-			m_homeId( _homeId )
+			m_homeId( _homeId ),
+			m_endpoint(1)
 			{
 				m_id = ((uint32)_nodeId)<<24;
 			}
-		ValueID( uint32 const _homeId, uint8 const _nodeId, uint32 const _instance ): 
-			m_homeId( _homeId )
+		// Construct a value id for use in notifications
+		ValueID( uint32 const _homeId, uint8 const _nodeId, uint32 const _instance, uint8 _endpoint ): 
+			m_homeId( _homeId ),
+			m_endpoint(_endpoint)
 			{ 
 				m_id = (((uint32)_nodeId)<<24) | (((uint32)_instance) << 4);
 				m_id1 = 0;
 			}
 
+		ValueID
+		(
+			uint32 const _homeId,
+			uint8 const	_nodeId,
+			ValueGenre const _genre,
+			uint8 const _commandClassId,
+			uint8 const _instance,
+			uint16 const _valueIndex,
+			ValueType const _type,
+			uint8 const _endpoint
+		) :
+			m_homeId(_homeId),
+			m_endpoint(_endpoint)
+		{
+			m_id = (((uint32)_nodeId) << 24)
+				| (((uint32)_genre) << 22)
+				| (((uint32)_commandClassId) << 14)
+				| (((uint32)(_instance & 0xFF)) << 4)
+				| ((uint32)_type);
+			m_id1 = (((uint32)_valueIndex) << 16);
+		}
 		// Default constructor
 		ValueID():
 			m_id(0),
 			m_id1(0),
-			m_homeId(0)
+			m_homeId(0),
+			m_endpoint(1)
 			{
 
 			}
@@ -353,6 +378,9 @@ namespace OpenZWave
 
 		// Unique PC interface identifier
 		uint32  m_homeId;
+
+		// The endpoint I belong to
+		uint8 m_endpoint;
 	};
 
 } // namespace OpenZWave

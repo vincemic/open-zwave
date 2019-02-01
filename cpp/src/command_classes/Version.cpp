@@ -251,7 +251,9 @@ bool Version::RequestCommandClassVersion
 //-----------------------------------------------------------------------------
 void Version::CreateVars
 (
-	uint8 const _instance
+	uint8 const _instance,
+	uint8 const _endpoint
+
 )
 {
 	if( Node* node = GetNodeUnsafe() )

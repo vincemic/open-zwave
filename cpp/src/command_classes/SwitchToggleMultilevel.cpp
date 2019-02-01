@@ -190,12 +190,13 @@ void SwitchToggleMultilevel::StopLevelChange
 //-----------------------------------------------------------------------------
 void SwitchToggleMultilevel::CreateVars
 (
-	uint8 const _instance
+	uint8 const _instance,
+	uint8 const _endpoint
 )
 {
 	if( Node* node = GetNodeUnsafe() )
 	{
-	  	node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Level", "", false, false, 0, 0 );
+	  	node->CreateValueByte( ValueID::ValueGenre_User, GetCommandClassId(), _instance, 0, "Level", "", false, false, 0, 0, _endpoint);
 	}
 }
 

@@ -56,7 +56,7 @@ namespace OpenZWave
 		virtual uint8 GetMaxVersion(){ return 3; }
 
 	protected:
-		virtual void CreateVars( uint8 const _instance );
+		virtual void CreateVars(uint8 const _instance, uint8 const _endpoint);
 
 	private:
 		Meter( uint32 const _homeId, uint8 const _nodeId );

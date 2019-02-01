@@ -64,7 +64,7 @@ namespace OpenZWave
 		virtual bool SetValue( Value const& _value );
 
 	protected:
-		virtual void CreateVars( uint8 const _instance );
+		virtual void CreateVars(uint8 const _instance, uint8 const _endpoint);
 
 	private:
 		SwitchToggleMultilevel( uint32 const _homeId, uint8 const _nodeId ): CommandClass( _homeId, _nodeId ){}
